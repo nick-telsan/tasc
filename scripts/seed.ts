@@ -20,6 +20,7 @@ async function createUser(email: string) {
       email,
       hashedPassword: password.password,
       salt: password.salt,
+      roles: 'admin',
     },
   })
 }
