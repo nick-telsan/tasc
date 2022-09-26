@@ -13,10 +13,14 @@ type TaskSubmitType = {
   task: string
 }
 
-export const TaskInput = () => {
+type TaskInputProps = {
+  addTask: (task: string) => void
+}
+
+export const TaskInput = ({ addTask }: TaskInputProps) => {
   const { register, handleSubmit } = useForm()
 
-  const onSubmit = (input: TaskSubmitType) => console.log(input)
+  const onSubmit = (input: TaskSubmitType) => addTask(input.task)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -26,6 +30,7 @@ export const TaskInput = () => {
         display="flex"
         justifyContent="center"
         px="8px"
+        my="8px"
       >
         <InputGroup>
           <Input
@@ -43,7 +48,7 @@ export const TaskInput = () => {
           />
           <InputRightElement>
             <IconButton
-              aria-label="Logout"
+              aria-label="Create Task"
               variant="ghost"
               type="submit"
               icon={<AddIcon />}

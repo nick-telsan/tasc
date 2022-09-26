@@ -10,7 +10,6 @@ export const Navbar = () => {
   return (
     <Container
       w="100%"
-      mb="12px"
       borderBottomColor="blackAlpha.700"
       borderBottomWidth="1px"
       borderBottomStyle="solid"
@@ -20,6 +19,9 @@ export const Navbar = () => {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
+      sx={{
+        boxShadow: 'var(--shadow-elevation-high)',
+      }}
     >
       <Text fontSize="xl" fontWeight="bold">
         Tasc

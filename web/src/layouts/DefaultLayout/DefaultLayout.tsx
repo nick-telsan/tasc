@@ -8,9 +8,12 @@ type DefaultLayoutProps = {
 
 const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
-    <Box className={styles.background} h="100vh" w="100%">
-      {children}
-    </Box>
+    <>
+      <Box className={styles.background} h="100vh" w="100%" position="fixed" />
+      <Box background="none" position="relative">
+        {children}
+      </Box>
+    </>
   )
 }
 
