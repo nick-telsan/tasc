@@ -10,7 +10,7 @@ export const Navbar = () => {
   return (
     <Container
       w="100%"
-      mb="4px"
+      mb="12px"
       borderBottomColor="blackAlpha.700"
       borderBottomWidth="1px"
       borderBottomStyle="solid"
