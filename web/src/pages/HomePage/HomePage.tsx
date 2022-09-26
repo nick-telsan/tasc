@@ -1,37 +1,20 @@
-import { useState } from 'react'
-
 import { Box } from '@chakra-ui/react'
 
+import { useAuth } from '@redwoodjs/auth'
 import { MetaTags } from '@redwoodjs/web'
 
 import { ListInput } from 'src/components/ListInput'
 import { Navbar } from 'src/components/Navbar'
-import { TaskCard } from 'src/components/TaskCard'
-import { TaskInput } from 'src/components/TaskInput'
-
-type task = string
+import TasksCell from 'src/components/TasksCell/TasksCell'
 
 const HomePage = () => {
-  const availableHeight = window.screen.availHeight - 48 - 38
-  const [tasks, setTasks] = useState<task[]>([])
-
-  const addTask = (task: task) => {
-    console.log(task)
-    const tempArray = tasks
-    setTasks(tempArray.concat(task))
-  }
-
+  const { currentUser } = useAuth()
   return (
     <>
       <MetaTags title="Tasc" description="Tasc out your life" />
       <Box position="relative" h="100vh">
         <Navbar />
-        <Box overflow="scroll" height={`${availableHeight}px`}>
-          <TaskInput addTask={addTask} />
-          {tasks.map((task, index) => (
-            <TaskCard key={index} task={task} />
-          ))}
-        </Box>
+        <TasksCell userId={currentUser.id} />
 
         <ListInput />
       </Box>

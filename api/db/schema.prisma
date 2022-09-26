@@ -16,4 +16,16 @@ model User {
   resetToken          String?
   resetTokenExpiresAt DateTime?
   roles String @default("user")
+
+  tasks Task[]
+}
+
+model Task {
+    id                  String       @id @default(uuid())
+  name String
+  complete Boolean
+  position Int
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

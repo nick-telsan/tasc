@@ -7,20 +7,54 @@ import {
   InputRightElement,
 } from '@chakra-ui/react'
 
+import { useAuth } from '@redwoodjs/auth'
 import { useForm } from '@redwoodjs/forms'
+import { useMutation } from '@redwoodjs/web'
+
+const CREATE_TASK = gql`
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      id
+      name
+      position
+    }
+  }
+`
 
 type TaskSubmitType = {
   task: string
 }
 
+type TasksType = {
+  id: string
+  name: string
+  position: number
+}
+
 type TaskInputProps = {
-  addTask: (task: string) => void
+  addTask: (task: TasksType) => void
 }
 
 export const TaskInput = ({ addTask }: TaskInputProps) => {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
+  const { currentUser } = useAuth()
+  const [create] = useMutation(CREATE_TASK)
 
-  const onSubmit = (input: TaskSubmitType) => addTask(input.task)
+  const onSubmit = async (input: TaskSubmitType) => {
+    create({
+      variables: {
+        input: {
+          userId: currentUser.id,
+          name: input.task,
+        },
+      },
+    }).then((result) => {
+      if (result.data?.createTask) {
+        addTask(result.data?.createTask)
+      }
+    })
+    reset()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
