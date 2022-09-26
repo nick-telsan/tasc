@@ -372,7 +372,7 @@
   align-items: center;
   justify-content: center;
   width: 24rem;
-  margin: 4rem auto;
+  margin: 0 auto;
   flex-wrap: wrap;
 }
 .rw-login-container .rw-form-wrapper {
